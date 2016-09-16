@@ -4,6 +4,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 
+var instagdb = require('./db.js');
+
 var COMMENTS_FILE = path.join(__dirname, 'comments.json');
 
 app.set('port', (process.env.PORT || 3000));
@@ -66,4 +68,14 @@ app.post('/api/comments', function(req, res) {
 
 app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
+  var p = instagdb.initDB();
+    p.then(
+        val => {
+
+        }).catch(
+        err => {
+            //handle all errors
+            console.log(err);
+        });
+
 });

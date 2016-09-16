@@ -34,7 +34,7 @@ exports.selectTweetsFor = selectTweetsFor;
 exports.selectUserFeed = selectUserFeed;
 */
 exports.insertImage = insertImage
-
+exports.initDB = initDB
 
 
 var image = {
@@ -66,51 +66,54 @@ var followrel = {
     follower: '',
 };
 
-function initDB(db) {
-    db.serialize(function () {
+function initDB() {
+    return new Promise(
+            (resolve, reject) => {
+        db.serialize(function () {
 
-        db.run("DROP TABLE users", function (err) { if (err) { } });
-        console.log("create users table");
-        db.run("CREATE TABLE users \
-        (USERID TEXT PRIMARY KEY NOT NULL, \
-        NAME TEXT NOT NULL, \
-        PASSWORD TEXT NOT NULL, \
-        PROFILE TEXT)", function (err) { if (err) {} });
-    });
-    db.serialize(function () {
-        db.run("DROP TABLE images", function (err) { if (err) { } });
-        console.log("create images table");
-        db.run("CREATE TABLE images \
-        (IID INTEGER PRIMARY KEY NOT NULL, \
-        FILENAME TEXT NOT NULL,\
-        USERID TEXT NOT NULL, \
-        TS TEXT NOT NULL)", function (err) { if (err) { } });
-    });
-    db.serialize(function () {
-        db.run("DROP TABLE comments", function (err) { if (err) { } }); //x
-        console.log("create comments table");
-        db.run("CREATE TABLE comments \
-        (COMMENTID INTEGER PRIMARY KEY NOT NULL, \
-        IID INT NOT NULL, \
-        USERID TEXT NOT NULL,\
-        MESSAGE TEXT NOT NULL,\
-        TS TEXT NOT NULL)", function (err) { if (err) {} });
-    });
-    db.serialize(function () {
-        db.run("DROP TABLE followRel", function (err) { if (err) { } }); //x
-        console.log("create followRel table");
-        db.run(
-            "CREATE TABLE followRel \
-            (LEADERID TEXT NOT NULL, \
-            FOLLOWERID TEXT NOT NULL)", function (err) { if (err) {  } });
-    });
-    db.serialize(function () {
-        db.run("DROP TABLE likeRel", function (err) { if (err) { } }); //x
-        console.log("create likeRel table");
-        db.run("CREATE TABLE likeRel \
-        (IID TEXT NOT NULL, \
-        USERID TEXT NOT NULL, \
-        TS TEXT NOT NULL)", function (err) { if (err) {} });
+            db.run("DROP TABLE users", function (err) { if (err) { } });
+            console.log("create users table");
+            db.run("CREATE TABLE users \
+            (USERID TEXT PRIMARY KEY NOT NULL, \
+            NAME TEXT NOT NULL, \
+            PASSWORD TEXT NOT NULL, \
+            PROFILE TEXT)", function (err) { if (err) {} });
+        });
+        db.serialize(function () {
+            db.run("DROP TABLE images", function (err) { if (err) { } });
+            console.log("create images table");
+            db.run("CREATE TABLE images \
+            (IID INTEGER PRIMARY KEY NOT NULL, \
+            FILENAME TEXT NOT NULL,\
+            USERID TEXT NOT NULL, \
+            TS TEXT NOT NULL)", function (err) { if (err) { } });
+        });
+        db.serialize(function () {
+            db.run("DROP TABLE comments", function (err) { if (err) { } }); //x
+            console.log("create comments table");
+            db.run("CREATE TABLE comments \
+            (COMMENTID INTEGER PRIMARY KEY NOT NULL, \
+            IID INT NOT NULL, \
+            USERID TEXT NOT NULL,\
+            MESSAGE TEXT NOT NULL,\
+            TS TEXT NOT NULL)", function (err) { if (err) {} });
+        });
+        db.serialize(function () {
+            db.run("DROP TABLE followRel", function (err) { if (err) { } }); //x
+            console.log("create followRel table");
+            db.run(
+                "CREATE TABLE followRel \
+                (LEADERID TEXT NOT NULL, \
+                FOLLOWERID TEXT NOT NULL)", function (err) { if (err) {  } });
+        });
+        db.serialize(function () {
+            db.run("DROP TABLE likeRel", function (err) { if (err) { } }); //x
+            console.log("create likeRel table");
+            db.run("CREATE TABLE likeRel \
+            (IID TEXT NOT NULL, \
+            USERID TEXT NOT NULL, \
+            TS TEXT NOT NULL)", function (err) { if (err) {} });
+        });
     });
 }
 
