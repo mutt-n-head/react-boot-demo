@@ -1,0 +1,41 @@
+.userprofile{
+    padding: 10px;
+    border-bottom-style: dotted dodgerblue ;
+    margin: 10px;
+    height: 150px;
+}
+
+.login{
+    border-radius: 100px;
+    border: 2px solid dodgerblue;
+    padding: 20px;
+    height: 500px;
+}
+
+.timeline{
+    background: lightgray;
+    padding: 20px;
+    height: 250px;
+    overflow: scroll;
+
+}
+
+.newpic{
+    background: white;
+    border: 2px solid dodgerblue;
+    padding: 20px;
+    height: 50px;
+    margin: 10px;
+}
+
+.btn{
+    border-radius: 100px;
+    border: 2px solid dodgerblue;
+    padding: 5px;
+    margin: 5px;
+    background: dodgerblue;
+    
+}
+table{
+    width:100%;
+}
