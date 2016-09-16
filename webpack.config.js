@@ -4,10 +4,20 @@ var path = require('path');
 
 var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var fs = require('fs');
 
 var dir_js = path.resolve(__dirname, 'js');
 var dir_html = path.resolve(__dirname, 'html');
 var dir_build = path.resolve(__dirname, 'build');
+
+var nodeModules = {};
+fs.readdirSync('node_modules')
+  .filter(function(x) {
+    return ['.bin'].indexOf(x) === -1;
+  })
+  .forEach(function(mod) {
+    nodeModules[mod] = 'commonjs ' + mod;
+  });
 
 module.exports = {
     entry: path.resolve(dir_js, 'main.js'),
@@ -21,15 +31,13 @@ module.exports = {
     module: {
         loaders: [
             {
-                loader: 'react-hot',
-                test: dir_js,
-            },
-            {
-                loader: 'babel-loader',
-                test: dir_js,
+                test: /\.jsx?$/,
+                exclude: /(node_modules|bower_components)/,
+                loader: 'babel',
                 query: {
-                    presets: ['es2015', 'react'],
+                    presets: ['react', 'es2015']
                 },
+                include: path.join(__dirname, 'js')
             }
         ]
     },
