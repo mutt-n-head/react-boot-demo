@@ -1,11 +1,11 @@
-.userprofile{
+.userprofile {
     padding: 10px;
     border-bottom-style: dotted dodgerblue ;
     margin: 10px;
     height: 150px;
 }
 
-.login{
+.login {
     border-radius: 100px;
     border: 2px solid dodgerblue;
     padding: 20px;
@@ -15,7 +15,7 @@
     background:white;
 }
 
-.timeline{
+.timeline {
     background: lightgray;
     padding: 20px;
     height: 250px;
@@ -23,7 +23,7 @@
 
 }
 
-.newpic{
+.newpic {
     background: white;
     border: 2px solid dodgerblue;
     padding: 20px;
@@ -39,6 +39,7 @@
     background: dodgerblue;
     
 }
-div.main{
+
+div.main {
     background: lightgray;
 }
