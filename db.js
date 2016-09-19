@@ -35,7 +35,9 @@ exports.selectUserFeed = selectUserFeed;
 */
 exports.insertImage = insertImage
 exports.initDB = initDB
-
+exports.insertUser = insertUser
+exports.insertImage = insertImage
+exports.insertComment = insertComment
 
 var image = {
     iid: '',
@@ -114,6 +116,7 @@ function initDB() {
             USERID TEXT NOT NULL, \
             TS TEXT NOT NULL)", function (err) { if (err) {} });
         });
+        resolve();
     });
 }
 
@@ -231,13 +234,30 @@ exports.selectCommentsForImage = (iid) => {
     return p;
 }
 
+exports.selectAllComments = () => {
+    return new Promise(
+        (resolve, reject) => {
+            db.serialize(function () {
+                db.all("SELECT * FROM comments", 
+                    function (err, rows) {
+                        if (err) {
+                            reject("comments table does not exist");                            
+                        } else {
+                            resolve(rows);
+                        }
+
+                });
+            });
+        });    
+}
+
 exports.selectUserFeed = (userid) => {
     var command = 'SELECT * FROM images, followrel where followrel.LEADERID = images.USERID and followrel.FOLLOWERID = ' + asMyQuote(userid) + ' ORDER BY images.TS DESC';
     var p = genericFetch(command, image, 'iid');
     return p;
 }
 
-initDB(db);
+// initDB(db);
 
 function debugit() {
     var xuid = 1;
@@ -254,6 +274,3 @@ function debugit() {
     insertImage('testimage3.jpg', 'psajak');
     insertImage('testimage4.jpg', 'cwoolery');
 }
-
-
-debugit();

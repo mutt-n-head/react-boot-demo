@@ -5,8 +5,13 @@ import $ from 'jquery';
 // test
 var CommentBox = React.createClass({
   loadCommentsFromServer: function() {
+    // var that = this;
+    // $.getJSON("/comments", function( data ) {
+    //         that.setState({data: data});            
+    // }); 
+
     $.ajax({
-      url: this.props.url,
+      url: "/comments",
       dataType: 'json',
       cache: false,
       success: function(data) {
@@ -16,6 +21,18 @@ var CommentBox = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+
+    // $.ajax({
+    //   url: this.props.url,
+    //   dataType: 'json',
+    //   cache: false,
+    //   success: function(data) {
+    //     this.setState({data: data});
+    //   }.bind(this),
+    //   error: function(xhr, status, err) {
+    //     console.error(this.props.url, status, err.toString());
+    //   }.bind(this)
+    // });
   },
   handleCommentSubmit: function(comment) {
     var comments = this.state.data;
@@ -26,8 +43,18 @@ var CommentBox = React.createClass({
     var newComments = comments.concat([comment]);
     this.setState({data: newComments});
 
+
+    // $.post("/comment", userObj, function(data) {
+            
+    //     }).done(function(data) {
+    //         this.setState({data: data});
+    //     }).fail(function() {
+    //         this.setState({data: comments});
+    //         console.error(this.props.url, status, err.toString());
+    //     })
+
     $.ajax({
-      url: this.props.url,
+      url: "/comment",
       dataType: 'json',
       type: 'POST',
       data: comment,
@@ -39,6 +66,20 @@ var CommentBox = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+
+    // $.ajax({
+    //   url: this.props.url,
+    //   dataType: 'json',
+    //   type: 'POST',
+    //   data: comment,
+    //   success: function(data) {
+    //     this.setState({data: data});
+    //   }.bind(this),
+    //   error: function(xhr, status, err) {
+    //     this.setState({data: comments});
+    //     console.error(this.props.url, status, err.toString());
+    //   }.bind(this)
+    // });
   },
   getInitialState: function() {
     return {data: []};
