@@ -4,6 +4,8 @@ var path = require('path');
 
 var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var styleLoader = require('style-loader');
+var cssLoader = require('css-loader');
 var fs = require('fs');
 
 var dir_js = path.resolve(__dirname, 'js');
@@ -37,7 +39,11 @@ module.exports = {
                 query: {
                     presets: ['react', 'es2015']
                 },
-                include: path.join(__dirname, 'js')
+            },
+            {
+                test: /\.css$/,
+                loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]' ,
+                include: dir_html
             }
         ]
     },
@@ -53,6 +59,7 @@ module.exports = {
         // Nice colored output
         colors: true
     },
+    
     // Create Sourcemaps for the bundle
     devtool: 'source-map',
 };
