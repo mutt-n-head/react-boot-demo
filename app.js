@@ -69,10 +69,10 @@ app.get('/comments', function(req, res) {
 });
 
 app.post('/comment', function(request, response) {
-  var userid = request.body.userid;
-  var tweetText = request.body.tweetText;
+  var userid = request.body.USERID;
+  var MESSAGE = request.body.MESSAGE;
 //   var timestamp = moment().format('YYYY-MM-DD H:mm:ss');
-  instagdb.insertComment(2, "1", tweetText)
+  instagdb.insertComment(2, userid, MESSAGE)
     .then(
       () => {
           response.send("success added");

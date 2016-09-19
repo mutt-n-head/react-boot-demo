@@ -109,8 +109,8 @@ var CommentForm = React.createClass({
     if (!MESSAGE || !USERID) {
       return;
     }
-    this.props.onCommentSubmit({COMMENTID: USERID, MESSAGE: MESSAGE});
-    this.setState({COMMENTID: '', MESSAGE: ''});
+    this.props.onCommentSubmit({USERID: USERID, MESSAGE: MESSAGE});
+    this.setState({USERID: '', MESSAGE: ''});
   },
 
   render: function() {
